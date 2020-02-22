@@ -12,6 +12,7 @@
           "NUnit3TestAdapter": "3.15.1",
           "Newtonsoft.Json": "12.0.3",
           "RestSharp": "106.10.2-alpha.0.8",
+          "RestSharp.RequestBuilder": "1.0.2",
           "NUnit": "3.12.0"
         },
         "runtime": {
@@ -367,6 +368,17 @@
           "lib/netstandard2.0/RestSharp.dll": {
             "assemblyVersion": "106.0.0.0",
             "fileVersion": "106.10.2.0"
+          }
+        }
+      },
+      "RestSharp.RequestBuilder/1.0.2": {
+        "dependencies": {
+          "RestSharp": "106.10.2-alpha.0.8"
+        },
+        "runtime": {
+          "lib/netstandard2.0/RestSharp.RequestBuilder.dll": {
+            "assemblyVersion": "1.0.0.2",
+            "fileVersion": "1.0.0.2"
           }
         }
       },
@@ -841,6 +853,13 @@
       "sha512": "sha512-Z1g/d7L4LNq5if6WBOPHZKPd2OHFfi1kNW/pVBXRMfwHLQZajKmDsf7H3wZZhKoFwRzRywzRS4cbo8jKlW8PiA==",
       "path": "restsharp/106.10.2-alpha.0.8",
       "hashPath": "restsharp.106.10.2-alpha.0.8.nupkg.sha512"
+    },
+    "RestSharp.RequestBuilder/1.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-J2TI6VuySM1h0uXKYn17+GgWRb+oBvb5ectDWXaRuyZwVRyn1R+jiYBGkJ6UnqtT1sLYllk6uvPogv10ejervQ==",
+      "path": "restsharp.requestbuilder/1.0.2",
+      "hashPath": "restsharp.requestbuilder.1.0.2.nupkg.sha512"
     },
     "runtime.native.System/4.3.0": {
       "type": "package",

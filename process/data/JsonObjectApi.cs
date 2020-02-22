@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using RestSharp;
 
-namespace RestAPIFrame.data
+namespace RestAPIFrame.process.data
 {
     public class JsonObjectApi : JsonObject
     {
@@ -12,7 +11,18 @@ namespace RestAPIFrame.data
             Add("accept",value);
             return this;
         }
+
+        public JsonObject PutPathParams(Dictionary<string, object> myHeaders)
+        {
+            Add("pathParams", myHeaders);
+            return this;
+        }
         
+        public JsonObject PutQueryParams(Dictionary<string, object> myHeaders)
+        {
+            Add("queryParams", myHeaders);
+            return this;
+        }
         public JsonObject PutRequest( string value) 
         {
             Add("request",value);
@@ -43,6 +53,18 @@ namespace RestAPIFrame.data
             return (Dictionary<string, object>) myHeaders;
         }
 
+        public Dictionary<string, object> GetPathParams()
+        {
+            this.TryGetValue("pathParams", out var myHeaders);
+            return (Dictionary<string, object>) myHeaders;
+        }
+        
+        public Dictionary<string, object> GetQueryParams()
+        {
+            this.TryGetValue("queryParams", out var myHeaders);
+            return (Dictionary<string, object>) myHeaders;
+        }
+        
         public string GetAccept()
         {
 
@@ -64,14 +86,16 @@ namespace RestAPIFrame.data
             myDictionary.Add("userName","trugaaa");
             myDictionary.Add("password","uSeregi");
             
-            testObject.PutAccept("testAccept");
+            testObject.PutAccept("application/json");
             testObject.PutEndpoint("/endpoint");
-            testObject.PutRequest("request");
+            testObject.PutRequest("application/json");
             testObject.PutHeaders(myDictionary);
-
-            Assert.AreEqual(testObject.GetRequest(),"request");
+            testObject.PutPathParams(myDictionary);
+            testObject.PutQueryParams(myDictionary);
+            
+            Assert.AreEqual(testObject.GetRequest(),"application/json");
             Assert.AreEqual(testObject.GetEndpoint(),"/endpoint");
-            Assert.AreEqual(testObject.GetAccept(),"testAccept");
+            Assert.AreEqual(testObject.GetAccept(),"application/json");
             Assert.AreEqual(testObject.GetHeaders().Count,2);
 
             Dictionary<string, object> dic = testObject.GetHeaders();
@@ -79,6 +103,18 @@ namespace RestAPIFrame.data
             dic.TryGetValue("password", out var password);
             Assert.AreEqual(username,"trugaaa");
             Assert.AreEqual(password,"uSeregi");
+            
+            dic = testObject.GetPathParams();
+            dic.TryGetValue("userName", out var username1);
+            dic.TryGetValue("password", out var  password1);
+            Assert.AreEqual(username1,"trugaaa");
+            Assert.AreEqual(password1,"uSeregi");
+            
+            dic = testObject.GetQueryParams();
+            dic.TryGetValue("userName", out var username2);
+            dic.TryGetValue("password", out var  password2);
+            Assert.AreEqual(username2,"trugaaa");
+            Assert.AreEqual(password2,"uSeregi");
         }
     }
 }
