@@ -1,4 +1,3 @@
-using System;
 using System.Net;
 using NUnit.Framework;
 using RestAPIFrame.process;

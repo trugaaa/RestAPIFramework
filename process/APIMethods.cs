@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Net;
-using NUnit.Framework;
 using RestAPIFrame.process.data;
 using RestSharp;
 
@@ -17,14 +15,14 @@ namespace RestAPIFrame.process
         }
         private RestRequest RequestBuild(Method httpMethod ,JsonObjectApi headers,JsonObject requestBody)
         {
-            Console.WriteLine("RequestBuildStart");
+
         RestRequest request = new RestRequest(headers.GetEndpoint(), httpMethod);
-        Console.WriteLine("Stroka 22");
+
         request.OnBeforeDeserialization = requestContentType =>
         {
             requestContentType.ContentType = headers.GetAccept();
         };
-        Console.WriteLine("Stroka 27");
+
         if (headers.GetHeaders() != null)
         {
             foreach (var (key, value) in headers.GetHeaders())
@@ -32,7 +30,7 @@ namespace RestAPIFrame.process
                 request.AddHeader(key, value.ToString());
             }
         }
-        Console.WriteLine("Stroka 35");
+
         if (headers.GetPathParams()!=null)
         {
             foreach ( var (key, value) in headers.GetPathParams())
@@ -41,7 +39,6 @@ namespace RestAPIFrame.process
             }
         }
         
-        Console.WriteLine("Stroka 44");
         if (headers.GetQueryParams()!=null)
         {
             foreach (var (key, value) in headers.GetPathParams())
@@ -50,7 +47,6 @@ namespace RestAPIFrame.process
             }
         }
         
-        Console.WriteLine("Stroka 53");
         if (requestBody != null)
         {
             request.AddJsonBody(requestBody);
@@ -89,54 +85,55 @@ namespace RestAPIFrame.process
 
         private void Log(IRestResponse response, JsonObjectApi headers, JsonObject body)
         {
-            if (_isLogsOn == true)
+            if (_isLogsOn )
             {
                 Console.WriteLine("Request: ");
                 Console.WriteLine("    URI: " + response.ResponseUri);
                 Console.WriteLine("    Content.Type: "+headers.GetRequest());
-              if (headers.GetHeaders() != null)
-                      {
+                     if (headers.GetHeaders() != null)
+                     {
                           
-                          Console.WriteLine("    Headers:");
-                          foreach (var (key, value) in headers.GetHeaders())
-                          {
-                              Console.WriteLine(key,value);
-                          }
-                      }
-                      if (headers.GetPathParams()!=null)
-                      {
-                          Console.WriteLine("    Path parameters:");
-                          foreach ( var (key, value) in headers.GetPathParams())
-                          {
-                              Console.WriteLine(key,value);
-                          }
-                      }
-                      if (headers.GetQueryParams()!=null)
-                      {    
-                          Console.WriteLine("    Query parameters:");
-                          foreach (var (key, value) in headers.GetPathParams())
-                          {
-                              Console.WriteLine(key,value);
-                          }
-                      }
-                      if (body != null)
-                      {
-                          Console.WriteLine("    Body: ");
-                          Console.WriteLine(body);
-                      }
+                         Console.WriteLine("    Headers:");
+                         foreach (var (key, value) in headers.GetHeaders())
+                         {
+                             Console.WriteLine(key + " : " +value);
+                         }
+                     }
+                     if (headers.GetPathParams()!=null)
+                     {
+                         Console.WriteLine("    Path parameters:");
+                         foreach ( var (key, value) in headers.GetPathParams())
+                         {
+                             Console.WriteLine(key+ " : " +value);
+                         }
+                     }
+                     if (headers.GetQueryParams()!=null)
+                     {    
+                         Console.WriteLine("    Query parameters:");
+                         foreach (var (key, value) in headers.GetPathParams())
+                         {
+                             Console.WriteLine(key+ " : " +value);
+                         }
+                     }
+                     if (body != null)
+                     {
+                         Console.WriteLine("    Body: ");
+                         Console.WriteLine(body);
+                     }
 
-                      Console.WriteLine("Response: ");
-                      Console.WriteLine("    Headers:");
-                      Console.WriteLine(response.Headers);
+                     Console.WriteLine();
+                     Console.WriteLine("Response: ");
+                     Console.WriteLine("    Headers:");
+                     Console.WriteLine(response.Headers.ToString());
                
-                      if (response.Content != null)
-                      {
-                          Console.WriteLine("    Body: ");
-                          Console.WriteLine(response.Content);
-                      }
+                     if (response.Content != null)
+                     {
+                         Console.WriteLine("    Body: ");
+                         Console.WriteLine(response.Content);
+                     }
                       
-                      Console.WriteLine("    Content.Type: "+response.ContentType);
-                      Console.WriteLine("    HTTP Code: " + response.StatusCode);
+                     Console.WriteLine("    Content.Type: "+response.ContentType);
+                     Console.WriteLine("    HTTP Code: " + response.StatusCode);
             }
         }
     }
