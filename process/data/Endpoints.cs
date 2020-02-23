@@ -4,8 +4,8 @@
     {
         //в планах 
         //enum для бедных
-        public string Users { get { return "/api/v1/users"; } }
-        public string UsersBulk { get { return "/api/v1/users/bulk"; } }
+        public string Users { get { return "/users"; } }
+        public string UsersBulk { get { return "/users/bulk"; } }
          
     }
 }
