@@ -18,7 +18,7 @@ namespace RestAPIFrame.process.data
         
         public JsonObjectApi DataHeadersWithPathId(string endpoint,int id)
         {
-            JsonObjectApi apiHeaders = new ApiHeaders().DataHeaders(endpoint.Replace("/{id}/", "/"+ id +"/"));
+            JsonObjectApi apiHeaders = new ApiHeaders().DataHeaders(endpoint.Replace("{id}",  id.ToString() ));
             return apiHeaders;
         }
 
